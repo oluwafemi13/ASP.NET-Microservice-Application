@@ -1,4 +1,5 @@
-﻿using CatalogueAPI.Data.Interface;
+﻿using CatalogueAPI.Data.DataSeeder;
+using CatalogueAPI.Data.Interface;
 using CatalogueAPI.Models;
 using MongoDB.Driver;
 
@@ -9,12 +10,13 @@ namespace CatalogueAPI.Data
 
         public CatalogueContext(IConfiguration configuration)
         {
-            MongoClient mongoClient = new MongoClient(configuration.GetValue<string>("DatabaseSettings: ConnectionString"));
-            var dataBase = mongoClient.GetDatabase(configuration.GetValue<string>("DatabaseSettings: DatabaseName"));
-            var collections = dataBase.GetCollection<Product>(configuration.GetValue<string>("DatabaseSettings: CollectionName"));
+            var mongoClient = new MongoClient(configuration.GetValue<string>("DatabaseSettings: ConnectionString"));
+            var database = mongoClient.GetDatabase(configuration.GetValue<string>("DatabaseSettings: DatabaseName"));
+            Products = database.GetCollection<Product>(configuration.GetValue<string>("DatabaseSettings: CollectionName"));
+            CatalogueContextSeed.seedData(Products);
         }
 
-        public IMongoCollection<Product> products
+        public IMongoCollection<Product> Products
         {
             get;
         }
