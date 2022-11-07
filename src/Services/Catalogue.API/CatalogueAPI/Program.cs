@@ -1,6 +1,7 @@
 using CatalogueAPI.Data;
 using CatalogueAPI.Data.DataSeeder;
 using CatalogueAPI.Data.Interface;
+using CatalogueAPI.Models;
 using CatalogueAPI.Repository;
 using CatalogueAPI.Repository.Interface;
 
@@ -15,7 +16,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<IApplicationBuilder, ApplicationBuilder>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICatalogueContext, CatalogueContext>();
-builder.Services.Configure<CatalogueContext>(
+builder.Services.Configure<DatabaseSettings>(
     builder.Configuration.GetSection("DatabaseSettings"));
 
 
