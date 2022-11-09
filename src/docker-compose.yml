@@ -4,6 +4,8 @@ services:
 
   cataloguedb:
     image: :mongo
+    
+    
 
   catalogueapi:
     image: ${DOCKER_REGISTRY-}catalogueapi
