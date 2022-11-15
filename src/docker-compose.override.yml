@@ -15,6 +15,18 @@ services:
      restart: always
      ports:
       - "6379:6379"
+  
+  discountdb:
+     container_name: discountdb
+     environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=1234
+        - POSTGRES_DB=DiscountDb
+     restart: always
+     ports:
+      - "5432:5432"
+     volumes:
+      - postgres_data:/var/lib/postgresql/data/
 
   portainer:
      container_name: portainer
@@ -46,4 +58,14 @@ services:
       - basketdb
     ports:
       - "8001:80"
+
+  discountapi:
+    container_name: discountapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://cataloguedb:27017"
+    depends_on:
+      - discountdb
+    ports:
+      - "8002:80"
 
