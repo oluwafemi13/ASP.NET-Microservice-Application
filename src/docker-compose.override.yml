@@ -28,12 +28,24 @@ services:
      volumes:
       - postgres_data:/var/lib/postgresql/data/
 
+  pgadmin:
+     container_name: pgadmin
+     environment:
+        - PGADMIN_DEFAULT_EMAIL=sundayjabikem@gmail.com
+        - PGADMIN_DEFAULT_PASSWORD=1234
+        
+     restart: always
+     ports:
+      - "5050:80"
+     volumes:
+      - pgadmin_data:/root/.pgadmin
+
   portainer:
      container_name: portainer
      restart: always
      ports:
-      - "8080:8000"
-      - "9000:9000"
+      - "8000:8000"
+      - "9443:9443"
      volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
@@ -59,13 +71,12 @@ services:
     ports:
       - "8001:80"
 
-  discountapi:
-    container_name: discountapi
+  
+
+
+  discount.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=mongodb://cataloguedb:27017"
-    depends_on:
-      - discountdb
     ports:
-      - "8002:80"
+      - "80"
 
