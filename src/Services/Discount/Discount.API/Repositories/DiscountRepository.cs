@@ -12,28 +12,50 @@ namespace Discount.API.Repositories
         private readonly DatabaseConnection _databaseConnection;
         private readonly IConfiguration _configuration;
 
-        public DiscountRepository(DatabaseConnection databaseConnection, IConfiguration configuration)
+        public DiscountRepository(DatabaseConnection databaseConnection,
+                                    IConfiguration configuration)
         {
             _databaseConnection = databaseConnection;
             _configuration = configuration;
         }
 
-        public Task<bool> CreateDiscount(Coupon coupon)
+        public async Task<bool> CreateDiscount(Coupon coupon)
         {
-            throw new NotImplementedException();
+            var connection = _databaseConnection.ConnectionString(_configuration);
+            string sql = $"INSERT INTO Coupon(ProductName, description, Amount) VALUES ({coupon.ProductName}, {coupon.Description}, {coupon.Amount})";
+            var affected = await connection.ExecuteAsync(sql);
+            if (affected == 0)
+                return false;
+            return true;
+
         }
 
-        public Task<bool> DeleteDiscount(string ProductName)
+        public async Task<bool> DeleteDiscount(string productName)
         {
-            throw new NotImplementedException();
+            
+            var connection = _databaseConnection.ConnectionString(_configuration);
+            string sql = $"DELETE * FROM Coupon WHERE ProductName = {productName}";
+            var check = await connection.ExecuteAsync(sql);
+            if (check == 0)
+            {
+               return false;
+            }
+            return true;
         }
 
-        public async Task<Coupon> GetDiscount(string ProductName)
+        public async Task<Coupon> GetDiscount(string productName)
         {
-            using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings: ConnectionString"));
+            //using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings: ConnectionString"));
 
-            var coupon = connection.QueryFirstOrDefaultAsync<Coupon>("");
+            //var coupon = connection.QueryFirstOrDefaultAsync<Coupon>("SELECT * FROM Coupon WHERE ProductName = @ProductName", new {ProductName = productName});
+            var coupon = await _databaseConnection.ConnectionString(_configuration).QueryFirstOrDefaultAsync<Coupon>($"SELECT * FROM Coupon WHERE ProductName = {productName}");
 
+            if(coupon is null)
+            {
+                return new Coupon() { ProductName =productName, Amount = 0 , Description=$"No discount for {productName} at this time"};
+            }
+
+            return coupon;
 
         }
 
@@ -42,9 +64,15 @@ namespace Discount.API.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateDiscount(Coupon coupon)
+        public async Task<bool> UpdateDiscount(Coupon coupon)
         {
-            throw new NotImplementedException();
+            var connection = _databaseConnection.ConnectionString(_configuration);
+            var sql = $"UPDATE Coupon SET ProductName = {coupon.ProductName}, Description = {coupon.Description}, Amount={coupon.Amount} WHERE Id = {coupon.Id} ";
+            var check = await connection.ExecuteAsync(sql);
+            if (check == 0)
+                return false;
+            return true;
+            
         }
     }
 }
