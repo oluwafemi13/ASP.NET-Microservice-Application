@@ -45,10 +45,10 @@ namespace Discount.API.Repositories
 
         public async Task<Coupon> GetDiscount(string productName)
         {
-            //using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings: ConnectionString"));
+            using var connection = new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings: ConnectionString"));
 
-            //var coupon = connection.QueryFirstOrDefaultAsync<Coupon>("SELECT * FROM Coupon WHERE ProductName = @ProductName", new {ProductName = productName});
-            var coupon = await _databaseConnection.ConnectionString(_configuration).QueryFirstOrDefaultAsync<Coupon>($"SELECT * FROM Coupon WHERE ProductName = {productName}");
+            var coupon = await connection.QueryFirstOrDefaultAsync<Coupon>("SELECT * FROM Coupon WHERE ProductName = @ProductName", new {ProductName = productName});
+           // var coupon = await _databaseConnection.ConnectionString(_configuration).QueryFirstOrDefaultAsync<Coupon>($"SELECT * FROM Coupon WHERE ProductName = {productName}");
 
             if(coupon is null)
             {
@@ -57,11 +57,6 @@ namespace Discount.API.Repositories
 
             return coupon;
 
-        }
-
-        public Task<bool> HasDiscount(string ProductName)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<bool> UpdateDiscount(Coupon coupon)

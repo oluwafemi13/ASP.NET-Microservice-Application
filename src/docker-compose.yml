@@ -12,10 +12,8 @@ services:
     image: dpage/pgadmin4
 
   discountdb:
-    image: :postgres:local
+    image: postgres
    
-  portainer:
-    image: :portainer/portainer-ce
 
   catalogueapi:
     image: ${DOCKER_REGISTRY-}catalogueapi
@@ -37,7 +35,6 @@ services:
 
 volumes:
   mongo_data:
-  portainer_data:
   postgres_data:
   pgadmin_data:
   

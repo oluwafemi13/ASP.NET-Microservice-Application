@@ -6,7 +6,7 @@ namespace Discount.API.Repositories.Interfaces
     {
         Task<Coupon> GetDiscount(string ProductName);
 
-        Task<bool> HasDiscount(string ProductName);
+        //Task<bool> HasDiscount(string ProductName);
 
         Task<bool> CreateDiscount(Coupon coupon);
         Task<bool> UpdateDiscount(Coupon coupon);

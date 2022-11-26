@@ -32,24 +32,14 @@ services:
      container_name: pgadmin
      environment:
         - PGADMIN_DEFAULT_EMAIL=sundayjabikem@gmail.com
-        - PGADMIN_DEFAULT_PASSWORD=1234
-        
+        - PGADMIN_DEFAULT_PASSWORD=1234  
      restart: always
      ports:
       - "5050:80"
      volumes:
       - pgadmin_data:/root/.pgadmin
 
-  portainer:
-     container_name: portainer
-     restart: always
-     ports:
-      - "8000:8000"
-      - "9443:9443"
-     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-
+ 
   catalogueapi:
     container_name: catalogueapi
     environment:
