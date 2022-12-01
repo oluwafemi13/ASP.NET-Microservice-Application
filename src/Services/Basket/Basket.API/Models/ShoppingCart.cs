@@ -6,6 +6,10 @@
 
         public List<ShoppingCartItems> items { get; set; } = new List<ShoppingCartItems>();
 
+        public ShoppingCart()
+        {
+
+        }
 
         public ShoppingCart(string userName)
         {

@@ -1,8 +1,12 @@
+using AutoMapper;
 using Discount.grpc.Connection;
+using Discount.grpc.Entities;
 using Discount.grpc.Extensions;
+using Discount.grpc.MapperProfile;
+using Discount.grpc.Protos;
 using Discount.grpc.Repositories;
 using Discount.grpc.Repositories.Interfaces;
-//using Discount.grpc.Services;
+using Discount.grpc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,14 +14,19 @@ var builder = WebApplication.CreateBuilder(args);
 // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
 // Add services to the container.
+//builder.Services.AddAutoMapper(typeof(DiscountProfile));
+var config = new MapperConfiguration(cfg => {
+ cfg.AddProfile<DiscountProfile>();
+});
 builder.Services.AddGrpc();
 builder.Services.AddSingleton<DatabaseConnection>();
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
+
 var app = builder.Build();
 app.MigrateDatabase<Program>();
 // Configure the HTTP request pipeline.
-//app.MapGrpcService<GreeterService>();
+app.MapGrpcService<DiscountService>();
 
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 

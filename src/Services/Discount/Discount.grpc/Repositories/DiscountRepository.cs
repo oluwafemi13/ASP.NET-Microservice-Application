@@ -21,7 +21,7 @@ namespace Discount.grpc.Repositories
 
         public async Task<bool> CreateDiscount(Coupon coupon)
         {
-            var connection = _databaseConnection.ConnectionString(_configuration);
+            var connection = _databaseConnection.ConnectionString();
             string sql = $"INSERT INTO Coupon(ProductName, description, Amount) VALUES ({coupon.ProductName}, {coupon.Description}, {coupon.Amount})";
             var affected = await connection.ExecuteAsync(sql);
             if (affected == 0)
@@ -33,7 +33,7 @@ namespace Discount.grpc.Repositories
         public async Task<bool> DeleteDiscount(string productName)
         {
             
-            var connection = _databaseConnection.ConnectionString(_configuration);
+            var connection = _databaseConnection.ConnectionString();
             string sql = $"DELETE * FROM Coupon WHERE ProductName = {productName}";
             //var check = await connection.ExecuteAsync("DELETE * FROM Coupon WHERE ProductName = @ProductName", new{ProductName = productName});
             var check = await connection.ExecuteAsync(sql);
@@ -62,7 +62,7 @@ namespace Discount.grpc.Repositories
 
         public async Task<bool> UpdateDiscount(Coupon coupon)
         {
-            var connection = _databaseConnection.ConnectionString(_configuration);
+            var connection = _databaseConnection.ConnectionString();
             var sql = $"UPDATE Coupon SET ProductName = {coupon.ProductName}, Description = {coupon.Description}, Amount={coupon.Amount} WHERE Id = {coupon.Id} ";
             var check = await connection.ExecuteAsync(sql);
             if (check == 0)

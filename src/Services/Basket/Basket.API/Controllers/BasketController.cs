@@ -28,6 +28,7 @@ namespace Basket.API.Controllers
         }
 
         [HttpPost]
+        [EndpointName("UpdateBasket")]
         [ProducesResponseType(typeof (ShoppingCart), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart cart)
@@ -39,6 +40,7 @@ namespace Basket.API.Controllers
         }
 
         [HttpDelete]
+        [EndpointName("DeleteBasket")]
         public async Task<ActionResult> DeleteBasket(string userName)
         {
             await _repository.DeleteBasket(userName);

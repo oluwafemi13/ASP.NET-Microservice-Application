@@ -6,15 +6,18 @@ namespace Discount.grpc.Connection
     public class DatabaseConnection
     {
         
+        private readonly IConfiguration _configuration;
 
-
-        public NpgsqlConnection ConnectionString(IConfiguration configuration)
+        public DatabaseConnection(IConfiguration configuration)
         {
-           
-            using var connection = new NpgsqlConnection(configuration.GetValue<string>("DatabaseSettings: ConnectionString"));
-            
-            return connection;
-
+            _configuration = configuration;
         }
+
+
+
+        public NpgsqlConnection ConnectionString()=>
+ 
+            new NpgsqlConnection(_configuration.GetValue<string>("DatabaseSettings: ConnectionString"));
+
     }
 }
