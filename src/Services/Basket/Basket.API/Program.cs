@@ -1,4 +1,6 @@
+using Basket.API.DiscountService;
 using Basket.API.Repository.Interface;
+using Discount.grpc.Protos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+//register the discount GRPC client proto buffer service
+//which was automatically generated
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
+    o => o.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"])
+    );
+//register the discount grpc service created
+builder.Services.AddScoped<DiscountGrpcService>();
 
 var app = builder.Build();
 
