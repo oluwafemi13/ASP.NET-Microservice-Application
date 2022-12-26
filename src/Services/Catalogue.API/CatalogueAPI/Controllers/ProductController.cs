@@ -29,7 +29,8 @@ namespace CatalogueAPI.Controllers
             return Ok(products);
         }
 
-        [HttpGet("[action]/{id}")]
+        //[HttpGet("getProductById/{id}")]
+         [HttpGet("[action]/{id}")]
         //[Route("[action]/{id:length(24)}"]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(Product),(int)HttpStatusCode.OK)]
