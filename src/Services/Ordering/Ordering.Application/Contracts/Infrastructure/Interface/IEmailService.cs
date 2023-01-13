@@ -1,4 +1,4 @@
-﻿using Ordering.Application.Models;
+﻿using Ordering.Application.Models.Email;
 using Ordering.Domain.Entities;
 using System;
 using System.Collections.Generic;

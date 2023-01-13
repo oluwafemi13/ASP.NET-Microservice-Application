@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Ordering.Application.Contracts.Database_Contrats.persistence.Interface;
+using Ordering.Application.Exceptions;
+using Ordering.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,7 @@ namespace Ordering.Application.Features.Orders.Commands.DeleteOrder
             if (checkOrder == null)
             {
                 _Logger.LogInformation($"order with Id{request.Id} was not found");
+                throw new NotFoundException(nameof(Order), request.Id);
             }
             await _orderRepository.DeleteAsync(checkOrder);
             return Unit.Value;

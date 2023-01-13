@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Ordering.Application.Contracts.Database_Contrats.persistence.Interface;
+using Ordering.Application.Exceptions;
 using Ordering.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
             if (findOrder == null)
             {
                 _logger.LogInformation("order not available");
+                throw new NotFoundException(nameof(Order), request.Id);
             }
              _mapper.Map(request, findOrder, typeof(UpdateOrderCommand), typeof(Order));
              await _orderRepository.UpdateAsync(findOrder);

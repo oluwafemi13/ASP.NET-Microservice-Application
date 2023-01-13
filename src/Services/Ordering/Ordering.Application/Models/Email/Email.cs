@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ordering.Application.Models
+namespace Ordering.Application.Models.Email
 {
     public class Email
     {
