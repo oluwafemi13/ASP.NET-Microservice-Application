@@ -35,16 +35,10 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
        
         public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
-            //var orderTaken = _OrderRepository.AddAsync
+            
             var correctOrder = _mapper.Map<Order>(request);
-            if (correctOrder != null)
-            {
-                _logger.LogInformation($"{request} is Empty");
-                
-            }
             var newOrder =await _OrderRepository.AddAsync(correctOrder);
             _logger.LogInformation($"order {newOrder.Id} is successfully created");
-
             await SendEmail(newOrder);
             return newOrder.Id; 
         }

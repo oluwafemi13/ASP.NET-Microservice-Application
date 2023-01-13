@@ -1,15 +1,16 @@
 ﻿using FluentValidation;
+using Ordering.Application.Features.Orders.Commands.CheckoutOrder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
+namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
 {
-    public class CheckoutOrderCommandValidator: AbstractValidator<CheckoutOrderCommand>
+    public class UpdateOrderCommandValidator: AbstractValidator<UpdateOrderCommand>
     {
-        public CheckoutOrderCommandValidator()
+        public UpdateOrderCommandValidator()
         {
             RuleFor(x => x.UserName).NotEmpty().WithMessage("Username is Required").NotNull().
                 MaximumLength(60).WithMessage("Username must not Exceed 60 Characters");
