@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Ordering.Application.Contracts.Database_Contrats.persistence.Interface;
 using Ordering.Application.Contracts.Infrastructure.Interface;
 using Ordering.Application.Models;
+using Ordering.Application.Models.Email;
 using Ordering.Application.persistence.Interface;
 using Ordering.Domain.Entities;
 using System;
