@@ -10,13 +10,13 @@ namespace Ordering.Infrastructure.Persistence
 {
     public class OrderDatabaseContextSeed
     {
-        public static async Task SeedAsync(OrderDatabaseContext orderContext, ILogger<OrderDatabaseContextSeed> logger)
+        public static async Task SeedAsync(DatabaseContext orderContext, ILogger<OrderDatabaseContextSeed> logger)
         {
             if (!orderContext.Orders.Any())
             {
                 orderContext.Orders.AddRange(GetPreconfiguredOrders());
                 await orderContext.SaveChangesAsync();
-                logger.LogInformation("Seed database associated with context {DbContextName}", typeof(OrderDatabaseContext).Name);
+                logger.LogInformation("Seed database associated with context {DbContextName}", typeof(DatabaseContext).Name);
             }
         }
 

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Ordering.Infrastructure.Persistence
 {
-    public class OrderDatabaseContext: DbContext
+    public class DatabaseContext: DbContext
     {
-        public OrderDatabaseContext(DbContextOptions<OrderDatabaseContext> options):base(options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options):base(options)
         {
 
         }
