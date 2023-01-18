@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Ordering.Application.Contracts.Infrastructure;
+using Ordering.Application.Contracts.Infrastructure.Interface;
 using Ordering.Application.Models;
+using Ordering.Application.Models.Email;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;

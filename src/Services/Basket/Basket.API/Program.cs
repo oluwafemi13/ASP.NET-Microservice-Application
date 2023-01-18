@@ -4,7 +4,7 @@ using Discount.grpc.Protos;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add Services to the container.
 builder.Services.AddStackExchangeRedisCache(option =>
 {
     string Connection = builder.Configuration.GetConnectionString("");

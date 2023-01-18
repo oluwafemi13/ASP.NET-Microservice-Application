@@ -10,9 +10,9 @@ namespace Discount.grpc.Extensions
             {
                 using (var scope = host.Services.CreateScope())
                 {
-                    var services = scope.ServiceProvider;
-                    var configuration = services.GetRequiredService<IConfiguration>();
-                    var logger = services.GetRequiredService<ILogger<TContext>>();
+                    var Services = scope.ServiceProvider;
+                    var configuration = Services.GetRequiredService<IConfiguration>();
+                    var logger = Services.GetRequiredService<ILogger<TContext>>();
 
                     logger.LogInformation("Migrating postresql database.");
 

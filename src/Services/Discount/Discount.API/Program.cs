@@ -7,7 +7,7 @@ using Discount.API.Repositories.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Add services to the container.
+// Add Services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<DatabaseConnection>();
