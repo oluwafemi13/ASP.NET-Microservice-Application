@@ -13,7 +13,7 @@ namespace Ordering.Application.Features.Orders.Commands.CheckoutOrder
         public string UserName { get; set; }
         public decimal TotalPrice { get; set; }
         // public DateTime OrderDate { get; set; }
-        public List<object> OrderedItems { get; set; }
+        //public List<object> OrderedItems { get; set; }
 
 
         // BillingAddress
