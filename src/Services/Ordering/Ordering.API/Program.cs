@@ -12,6 +12,7 @@ using Ordering.Infrastructure.Mail;
 using Ordering.Infrastructure.Persistence;
 using Ordering.Infrastructure.Repositories;
 using EllipticCurve;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add Services to the container.
@@ -21,6 +22,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddDbContext<DatabaseContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

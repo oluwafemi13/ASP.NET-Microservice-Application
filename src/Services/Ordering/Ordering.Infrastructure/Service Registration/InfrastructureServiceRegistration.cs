@@ -15,8 +15,8 @@ namespace Ordering.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection Services, IConfiguration configuration)
         {            
-            Services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("OrderingConnectionString")));
+            /*Services.AddDbContext<DatabaseContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));*/
 
             Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));                        
             Services.AddScoped<IOrdeRepository, OrderRepository>();
