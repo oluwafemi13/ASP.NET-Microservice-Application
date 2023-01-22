@@ -14,15 +14,20 @@ using Ordering.Infrastructure.Repositories;
 using EllipticCurve;
 using Microsoft.Extensions.Options;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+//register configuration
+ConfigurationManager configuration = builder.Configuration;
 // Add Services to the container.
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddDbContext<DatabaseContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+builder.Services.AddInfrastructureServices(configuration);
+builder.Services.AddDbContext<DatabaseContext>(Options => Options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
     b => b.MigrationsAssembly("Ordering.Infrastructure")));
 
 var app = builder.Build();
