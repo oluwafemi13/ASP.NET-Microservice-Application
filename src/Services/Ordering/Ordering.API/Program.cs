@@ -27,8 +27,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(configuration);
+//database dependency
 builder.Services.AddDbContext<DatabaseContext>(Options => Options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-    b => b.MigrationsAssembly("Ordering.Infrastructure")));
+    b => b.MigrationsAssembly("Ordering.API")));
 
 var app = builder.Build();
 
