@@ -13,6 +13,9 @@ Services:
 
   discountdb:
     image: postgres
+
+  OrderDB:
+    image: mcr.microsoft.com/mssql/server:2022-latest
    
 
   catalogueapi:

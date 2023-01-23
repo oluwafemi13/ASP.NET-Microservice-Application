@@ -1,9 +1,9 @@
 using AutoMapper;
 using Discount.grpc.Connection;
-using Discount.grpc.Entities;
+
 using Discount.grpc.Extensions;
 using Discount.grpc.MapperProfile;
-using Discount.grpc.Protos;
+
 using Discount.grpc.Repositories;
 using Discount.grpc.Repositories.Interfaces;
 using Discount.grpc.Services;

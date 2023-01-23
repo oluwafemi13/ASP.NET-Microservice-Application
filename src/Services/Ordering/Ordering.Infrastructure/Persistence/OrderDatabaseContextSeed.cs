@@ -1,10 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Ordering.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Ordering.Infrastructure.Persistence
 {
@@ -19,6 +15,7 @@ namespace Ordering.Infrastructure.Persistence
                 logger.LogInformation("Seed database associated with context {DbContextName}", typeof(DatabaseContext).Name);
             }
         }
+
 
         private static IEnumerable<Order> GetPreconfiguredOrders()
         {

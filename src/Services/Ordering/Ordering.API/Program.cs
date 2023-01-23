@@ -1,20 +1,8 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Ordering.Application;
-using Ordering.Application.Contracts.Database_Contrats.persistence.Interface;
-using Ordering.Application.Contracts.Infrastructure.Interface;
-using Ordering.Application.Models.Email;
-using Ordering.Application.persistence.Interface;
 using Ordering.Infrastructure;
-using Microsoft.Extensions.Configuration;
-using Ordering.Infrastructure.Mail;
+using Ordering.API.Extensions;
 using Ordering.Infrastructure.Persistence;
-using Ordering.Infrastructure.Repositories;
-using EllipticCurve;
-using Microsoft.Extensions.Options;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,10 +16,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(configuration);
 //database dependency
-builder.Services.AddDbContext<DatabaseContext>(Options => Options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-    b => b.MigrationsAssembly("Ordering.API")));
+builder.Services.AddDbContext<DatabaseContext>(Options => Options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+   /* b => b.MigrationsAssembly("Ordering.API")));*/
 
 var app = builder.Build();
+
+#region automatic migration using IHost Extension class
+app.MigrateDatabase<DatabaseContext>((context, services) =>
+{
+    var logger = services.GetService<ILogger<OrderDatabaseContextSeed>>();
+    OrderDatabaseContextSeed
+        .SeedAsync(context, logger)
+        .Wait();
+});
+#endregion
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

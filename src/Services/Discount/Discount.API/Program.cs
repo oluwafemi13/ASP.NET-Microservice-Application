@@ -19,7 +19,9 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
-app.MigrateDatabase<Program>();
+//app.MigrateDatabase<Program>();
+app.MigrateDatabase<WebSocketAcceptContext>();
+
 
 
 // Configure the HTTP request pipeline.
